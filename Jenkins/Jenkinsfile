@@ -1,0 +1,28 @@
+String imageName = "pm-back"
+String dockerRegistry = 'http://teststand:5000'
+
+node {
+  stage("Prepare") {
+    cleanWs();
+    dir('src') {
+      git credentialsId: 'ssh-gitlab', url: 'ssh://git@teststand:8022/root/pm-back.git'
+    }
+  }
+  stage("Build") {
+    resultImage = docker.build(imageName, "-f ./src/Jenkins/Dockerfile --build-arg npmRegistry=http://teststand:4873 --rm .")
+  }
+  stage("Push") {
+    docker.withRegistry(dockerRegistry) {
+      resultImage.push(BUILD_ID)
+      resultImage.push('latest')
+    }
+  }
+  stage("teardown") {
+    content = """{
+  "release": "${dockerRegistry}/${imageName}:${BUILD_ID}"
+}"""
+    writeFile file: 'result.json', text: content, encoding: "utf-8"
+    archive 'result.json'
+    sh "docker image prune -af"
+  }
+}

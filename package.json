@@ -1,0 +1,25 @@
+{
+  "name": "puppet-masters",
+  "version": "0.0.1",
+  "description": "QA Automation tool",
+  "main": "index.cjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --async-stack-traces index.cjs"
+  },
+  "exports": {
+    "./WebServer": "./src/WebServer/index.cjs",
+    "./DockerWrapper": "./src/DockerWrapper/index.cjs"
+  },
+  "author": "Ilia Sverdlin",
+  "types": "src/index.d.ts",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dockerode": "^4.0.2",
+    "express": "^4.19.2",
+    "express-handlebars": "^7.1.2",
+    "ssh2": "^1.15.0",
+    "ws": "^8.16.0"
+  }
+}

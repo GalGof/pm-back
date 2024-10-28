@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "module": "NodeNext",
+    "target": "ES2022",
+    "checkJs": true,
+    "baseUrl": ".",
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "nodenext",
+    // "strict": true, 
+    "noImplicitAny": true
+  },
+  "files": ["./src/DockerWrapper/index.ts", "./types/types.d.ts", "./index.cjs"],
+  "exclude": [
+    "node_modules",
+    "**/node_modules/*",
+    "database"
+  ]
+}
